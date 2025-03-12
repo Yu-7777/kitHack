@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request
 import sqlite3
+import random
+from datetime import datetime, timedelta
 from setup.createtable  import createTable
 
 
 
-dt_now = datetime.datetime.now()
+dt_now = datetime.now()
 app = Flask(__name__)
 
 @app.route('/')
@@ -18,7 +20,7 @@ def test():
     cur = con.cursor()
     dblen, dblist = 0, []
     
-    if request.methods="GET":
+    if request.methods=="GET":
         var1 = None
     else:
         name = request.form.get('name','')
