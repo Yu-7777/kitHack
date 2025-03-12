@@ -20,6 +20,8 @@ def get_inventory():
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if request.method == "GET":
+        return render_template('test.html', dblist=dblist)
+    if request.method == "POST":
         product_id = request.form.get('product_id', '')
         name = request.form.get('product_name', '')
         num = request.form.get('product_num', '')
