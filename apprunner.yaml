@@ -1,7 +1,8 @@
 version: 1.0
-image:
-  build:
-    context: .
-    dockerfile: Dockerfile
+runtime: python
+build:
+  commands:
+    - pip install --no-cache-dir -r requirements.txt
+start: python app.py
 service:
   port: 3000
