@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistics Rental Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        .container {
+            padding: 2rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        select, input, button {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.25rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Logistics Rental Platform</h1>
+    </header>
+    <div class="container">
+        <form id="rental-form">
+            <div class="form-group">
+                <label for="facility-type">モジュール型拠点の予約</label>
+                <select id="facility-type" name="facilityType" required>
+                    <option value="">-- 選択してください --</option>
+                    <option value="warehouse">倉庫</option>
+                    <option value="cold-storage">冷蔵コンテナ</option>
+                    <option value="workspace">作業スペース</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="start-date">開始日</label>
+                <input type="date" id="start-date" name="startDate" required>
+            </div>
+            <div class="form-group">
+                <label for="end-date">終了日</label>
+                <input type="date" id="end-date" name="endDate" required>
+            </div>
+            <div class="form-group">
+                <label for="location">エリアの入力</label>
+                <input type="text" id="location" name="location" placeholder="Enter a location" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
