@@ -6,6 +6,6 @@ from tensorflow.keras.callbacks import EarlyStopping
 import pandas as pd
 import numpy as np
 df = pd.read_excel('hack_data01.xlsx')
-subset=(np.asarray(df.iloc[0:])).transpose()
-
+subset=(np.asarray(df.iloc[0:]))
+print(subset)
 
