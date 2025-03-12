@@ -21,25 +21,80 @@
 </head>
 <body>
     <h1>在庫管理システム</h1>
+    <h2>コンテナ</h2>
     <table>
         <thead>
             <tr>
                 <th>商品ID</th>
-                <th>商品名</th>
-                <th>カテゴリ</th>
-                <th>在庫数</th>
+                <th>割合</th>
+                <th>場所</th>
             </tr>
         </thead>
         <tbody>
             {% for item in inventory %}
             <tr>
                 <td>{{ id }}</td>
-                <td>{{ name }}</td>
-                <td>{{ category }}</td>
-                <td>{{ stock }}</td>
+                <td>{{ vol }}</td>
+                <td>{{ place }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <h2>在庫</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>商品名</th>
+                <th>商品数</th>
+                <th>入荷日</th>
+                <th>出荷日</th>
+                <th>温度</th>
+                <th>場所</th>
+                <th>カテゴリー</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in inventory %}
+            <tr>
+                <td>{{ name }}</td>
+                <td>{{ num }}</td>
+                <td>{{ input }}</td>
+                <td>{{ output }}</td>
+                <td>{{ cold }}</td>
+                <td>{{ price }}</td>
+                <td>{{ category }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <h2>在庫情報の更新</h2>
+    <form action="/update" method="post">
+        <label for="product_id">商品ID:</label>
+        <input type="text" id="product_id" name="product_id" required>
+        
+        <label for="product_name">商品名:</label>
+        <input type="text" id="product_name" name="product_name" required>
+        
+        <label for="product_num">商品数:</label>
+        <input type="text" id="product_num" name="product_num" required>
+        
+        <label for="arrival_date">入荷日:</label>
+        <input type="date" id="arrival_date" name="arrival_date">
+        
+        <label for="shipment_date">出荷日:</label>
+        <input type="date" id="shipment_date" name="shipment_date"><br>
+        
+        <label for="temperature">温度:</label>
+        <input type="text" id="temperature" name="temperature">
+        
+        <label for="location">場所:</label>
+        <input type="text" id="location" name="location" required>
+        
+        <label for="category">カテゴリー:</label>
+        <input type="text" id="category" name="category" required>
+        
+        <button type="submit">更新</button>
+    </form>
 </body>
 </html>

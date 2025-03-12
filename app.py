@@ -11,6 +11,10 @@ def hello_wosrld():
 
     return "Hello world"
 
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
 @app.route("/cal2", methods=['GET', 'POST'])
 def cal2():
     item = {
