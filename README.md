@@ -15,6 +15,15 @@ git branch
 ```
 `main`と表示されれば成功
 
+### 以下を実行
+```
+docker compose build
+```
+```
+docker compose up
+```
++ 起動したら `localhost:8080` でアクセス可能
+
 ## 開発手順
 ### 最新情報をマージ
 ```bash
