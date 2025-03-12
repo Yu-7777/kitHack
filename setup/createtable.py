@@ -4,6 +4,7 @@ import random
 from datetime import datetime, timedelta
 
 
+
 def createTable():
     dbname="stock.db"
     con = sqlite3.connect( "stock.db" ) # DB接続
@@ -18,26 +19,35 @@ def createTable():
         return
 
 
-
+    c.execute("PRAGMA foeig_keys=true;")
 
     c.execute("""
-    CREATE TABLE IF NOT EXISTS zaiko (
+    CREATE TABLE IF NOT EXISTS category (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         num INTEGER NOT NULL,
-        input DATE,
-        output DATE,
         cold INTEGER,
         price INTEGER,
         category TEXT
     );
     """)
-    
+
+    c.execute("""
+              
+    CREATE TABLE IF NOT EXISTS item (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        item_id INTEGER NOT NULL,
+        date DATE ,
+        num INTEGER NOT NULL, 
+        foreign key (item_id) references category(id)   
+    );
+    """)
+    '''
     # ダミーデータ生成用のカテゴリ
     categories = ["食品", "飲料", "雑貨", "家電", "衣類"]
     names = ["商品A", "商品B", "商品C", "商品D", "商品E"]
 
-# ダミーデータの挿入
+    # ダミーデータの挿入
     for _ in range(100):
         name = random.choice(names) + str(random.randint(1, 100))
         num = random.randint(1, 100)
@@ -60,7 +70,11 @@ def createTable():
     print( "ダミーデータ１００個追加" )
     c.execute("SELECT * FROM zaiko") # 行数取得
     print (c.fetchall())
+    '''
 
+    c.execute("SELECT name FROM sqlite_master WHERE type='table';")
+
+    print(c.fetchall())
 
     con.commit() # 変更を反映（commitでファイル書き込み)
     con.close() 
