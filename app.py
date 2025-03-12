@@ -6,6 +6,10 @@ app = Flask(__name__)
 def hello_world():
     return "Hello world"
 
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
 @app.route("/cal2", methods=['GET', 'POST'])
 def cal2():
     item = {
