@@ -1,6 +1,6 @@
 import tensorflow
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense
+from tensorflow.keras.layers import LSTM, Dense,Dropout
 from tensorflow.keras.optimizers import Adam
 
 import pandas as pd
@@ -21,8 +21,9 @@ y=y/sum(y)
 
 model = Sequential()
 model.add(LSTM(hidden_units, input_shape=(sequence_length, 1)))
+model.add(Dropout(0.25))
 model.add(Dense(1))
 
 model.compile(optimizer=Adam(learning_rate=0.001), loss='mse')
 
-model.fit(X, y, epochs=100, batch_size=1)
+model.fit(X, y, epochs=200, batch_size=1)
