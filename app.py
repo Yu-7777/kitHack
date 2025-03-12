@@ -3,7 +3,6 @@ import sqlite3
 import datetime
 from setup.createtable import createTable
 
-dt_now = datetime.datetime.now()
 app = Flask(__name__)
 
 def get_inventory():
@@ -28,17 +27,17 @@ def test():
         con = sqlite3.connect("stock.db")
         cur = con.cursor()
         cur.execute("""
-            INSERT INTO zaiko (product_id, name, num, input, output, cold, category)
+            INSERT INTO zaiko (id, name, num, input, output, cold, category)
             VALUES (?, ?, ?, ?, ?, ?, ?)
         """, (product_id, name, num, input_date, output_date, cold, category))
         con.commit()
         con.close()
 
-        # リダイレクトしてフォーム送信後にページを更新
+        # ページをリロードしてフォームの再送信を防ぐ
         return redirect(url_for('test'))
 
     dblist = get_inventory()
-    return render_template('test.html', dblen=len(dblist), dblist=dblist)
+    return render_template('test.html', dblist=dblist)
 
 if __name__ == '__main__':
     createTable()

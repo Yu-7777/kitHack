@@ -15,6 +15,7 @@ def createTable():
         input DATE,
         output DATE,
         cold INTEGER,
+        place_stock TEXT,
         category TEXT
     );
     """)

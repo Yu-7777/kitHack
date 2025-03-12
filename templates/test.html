@@ -5,17 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>在庫管理システム</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            color: #01579b;
+            text-align: center;
+        }
         table {
-            width: 100%;
+            width: 80%;
+            margin: 20px auto;
             border-collapse: collapse;
+            background-color: #ffffff;
         }
         th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+            border: 1px solid #01579b;
+            padding: 10px;
             text-align: left;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #0288d1;
+            color: white;
+        }
+        h1, h2 {
+            color: #0277bd;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            width: 50%;
+            margin: 20px auto;
+            border: 2px solid #0288d1;
+            border-radius: 10px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #01579b;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #0288d1;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0277bd;
         }
     </style>
 </head>
@@ -31,7 +74,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for item in inventory %}
+            {% for item in dblist %}
             <tr>
                 <td>{{ id }}</td>
                 <td>{{ vol }}</td>
@@ -54,14 +97,14 @@
             </tr>
         </thead>
         <tbody>
-            {% for item in inventory %}
+            {% for item in dblist %}
             <tr>
                 <td>{{ name }}</td>
                 <td>{{ num }}</td>
                 <td>{{ input }}</td>
                 <td>{{ output }}</td>
                 <td>{{ cold }}</td>
-                <td>{{ price }}</td>
+                <td>{{ place_stock }}</td>
                 <td>{{ category }}</td>
             </tr>
             {% endfor %}
@@ -83,7 +126,7 @@
         <input type="date" id="arrival_date" name="arrival_date">
         
         <label for="shipment_date">出荷日:</label>
-        <input type="date" id="shipment_date" name="shipment_date"><br>
+        <input type="date" id="shipment_date" name="shipment_date">
         
         <label for="temperature">温度:</label>
         <input type="text" id="temperature" name="temperature">
