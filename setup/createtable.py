@@ -8,7 +8,7 @@ def createTable():
 
 
     c.execute("""
-    CREATE TABLE zaiko (
+    CREATE TABLE IF NOT EXISTS zaiko (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
         input DATE,
@@ -21,6 +21,6 @@ def createTable():
     # 2行挿入
     #c.execute("SELECT count(*) FROM zaiko") # 行数取得
     print( "データ件数" )
-    
+
     con.commit() # 変更を反映（commitでファイル書き込み)
     con.close() 
