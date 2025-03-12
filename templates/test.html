@@ -112,7 +112,7 @@
     </table>
     
     <h2>在庫情報の更新</h2>
-    <form action="test.html" method="post">
+    <form action="{{ url_for('test') }}" method="post">
         <label for="product_id">商品ID:</label>
         <input type="text" id="product_id" name="product_id" required>
         
