@@ -27,7 +27,7 @@ def createTable():
         name TEXT NOT NULL,
         num INTEGER NOT NULL,
         cold INTEGER,
-        price INTEGER,
+        place_stock TEXT,
         category TEXT
     );
     """)
