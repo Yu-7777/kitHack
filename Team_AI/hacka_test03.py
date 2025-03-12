@@ -6,10 +6,10 @@ from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 import numpy as np
 
-df = pd.read_excel('hack_2020.xlsx')
-subset = np.asarray(df.iloc[0:])
+df = pd.read_excel('hack_2020_1.xlsx')
+subset = (np.asarray(df.iloc[0:])).transpose()
 
-sequence_length = 34
+sequence_length = 44
 num_sequences = 1
 hidden_units = 32
 X = subset[:, :-1].reshape(-1, sequence_length, 1)
@@ -34,3 +34,4 @@ model.fit(X, y, epochs=200, batch_size=1)
 prediction = model.predict(X[:1])
 
 print(scaler.inverse_transform(prediction.reshape(-1, 1)).reshape(1, sequence_length, 1))
+print((scaler.inverse_transform(prediction.reshape(-1, 1)).reshape(1, sequence_length, 1)).shape)
