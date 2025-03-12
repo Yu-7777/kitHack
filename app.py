@@ -3,22 +3,15 @@ import sqlite3
 import random
 from datetime import datetime, timedelta
 from setup.createtable  import createTable
-
+from module import db
 
 
 dt_now = datetime.now()
 app = Flask(__name__)
 
-def get_inventory():
-    con = sqlite3.connect("stock.db")
-    cur = con.cursor()
-    cur.execute("SELECT * FROM zaiko")
-    rows = cur.fetchall()
-    con.close()
-    return rows
-
 @app.route('/test', methods=['GET', 'POST'])
 def test():
+    dblist = db.select_category()
     if request.method == "GET":
         return render_template('test.html', dblist=dblist)
     if request.method == "POST":
@@ -30,19 +23,12 @@ def test():
         cold = request.form.get('temperature', '')
         category = request.form.get('category', '')
 
-        con = sqlite3.connect("stock.db")
-        cur = con.cursor()
-        cur.execute("""
-            INSERT INTO zaiko (id, name, num, input, output, cold, category)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        """, (product_id, name, num, input_date, output_date, cold, category))
-        con.commit()
-        con.close()
+        print(product_id)
 
         # ページをリロードしてフォームの再送信を防ぐ
         return redirect(url_for('test'))
 
-    dblist = get_inventory()
+    dblist = db.select_category()
     return render_template('test.html', dblist=dblist)
 
 if __name__ == '__main__':
