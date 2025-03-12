@@ -33,13 +33,12 @@ def createTable():
     """)
 
     c.execute("""
-              
     CREATE TABLE IF NOT EXISTS item (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         item_id INTEGER NOT NULL,
         date DATE ,
-        num INTEGER NOT NULL, 
-        foreign key (item_id) references category(id)   
+        num INTEGER NOT NULL,
+        foreign key (item_id) references category(id)
     );
     """)
     '''
