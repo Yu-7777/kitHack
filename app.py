@@ -14,5 +14,9 @@ def cal2():
     return render_template('', item.id, item.name, item.category, item.price, item.stock)
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     app.debug = True
     app.run(host='localhost', port=8000)
+=======
+    app.run(host='0.0.0.0', port=3000)
+>>>>>>> a5bbb4c816edc0a25a0d87a2237405fd21cdd13b
