@@ -11,10 +11,10 @@ def createTable():
     CREATE TABLE IF NOT EXISTS zaiko (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
+        num INTEGER,
         input DATE,
         output DATE,
         cold INTEGER,
-        price INTEGER,
         category TEXT
     );
     """)
