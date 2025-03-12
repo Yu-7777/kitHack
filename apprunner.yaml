@@ -1,7 +1,9 @@
 version: 1.0
-image:
-  build:
-    context: .
-    dockerfile: Dockerfile
+runtime: python3
+build:
+  commands:
+    - python -m ensurepip --upgrade
+    - python -m pip install --no-cache-dir -r requirements.txt
+start: python app.py
 instanceConfiguration:
   port: 3000
