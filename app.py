@@ -31,6 +31,33 @@ def test():
     dblist = db.select_category()
     return render_template('test.html', dblist=dblist)
 
+@app.route('/index', methods=['GET', 'POST'])
+def index():
+    if request.method == "POST":
+        name = request.form.get('name', '')
+        num = request.form.get('num', '')
+        cold = request.form.get('cold', '')
+        place_stock = request.form.get('place_stock', '')
+        category_val = request.form.get('category', '')
+
+        num = int(num)
+        cold = int(cold)
+
+        db.add_category(name=name, num=num, cold=cold, place_stock=place_stock, category=category_val)
+        return redirect(url_for('index'))
+
+    dblist = db.select_category()
+    dblist = [dict(row) for row in dblist]
+    return render_template('index.html', dblist=dblist)
+
+"""
+@app.route('/update/<int:cat_id>', methods=['GET', 'POST'])
+def update(cat_id):
+    if request.method == "POST":
+        change = request.get('change', 0)
+        date = request.form.get('date', '')
+"""
+
 if __name__ == '__main__':
     createTable()
     app.debug = True

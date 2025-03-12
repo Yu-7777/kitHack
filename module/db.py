@@ -10,6 +10,7 @@ def get_connection():
 
 def get_cursor():
     con = get_connection()
+    con.row_factory = sqlite3.Row
     cur = con.cursor()
     return con, cur
 
@@ -96,3 +97,5 @@ def select_item(
 
     con.close()
     return results
+
+# def update_num_category()
