@@ -3,5 +3,5 @@ image:
   build:
     context: .
     dockerfile: Dockerfile
-service:
+instanceConfiguration:
   port: 3000
