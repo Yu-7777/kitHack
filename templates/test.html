@@ -27,26 +27,18 @@
                 <th>商品ID</th>
                 <th>商品名</th>
                 <th>カテゴリ</th>
-                <th>価格</th>
                 <th>在庫数</th>
             </tr>
         </thead>
         <tbody>
+            {% for item in inventory %}
             <tr>
-                <td>001</td>
-                <td>商品A</td>
-                <td>家電</td>
-                <td>¥10,000</td>
-                <td>20</td>
+                <td>{{ id }}</td>
+                <td>{{ name }}</td>
+                <td>{{ category }}</td>
+                <td>{{ stock }}</td>
             </tr>
-            <tr>
-                <td>002</td>
-                <td>商品B</td>
-                <td>文房具</td>
-                <td>¥500</td>
-                <td>50</td>
-            </tr>
-            <!-- 追加のデータはここに挿入 -->
+            {% endfor %}
         </tbody>
     </table>
 </body>
