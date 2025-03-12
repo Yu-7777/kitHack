@@ -1,8 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
-import datetime
-from setup.createtable import createTable
+import random
+from datetime import datetime, timedelta
+from setup.createtable  import createTable
 
+
+
+dt_now = datetime.now()
 app = Flask(__name__)
 
 def get_inventory():
