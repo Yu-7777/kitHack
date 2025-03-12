@@ -1,10 +1,18 @@
 from flask import Flask, render_template, request
-import datetime 
+import sqlite3
+from setup.createtable  import createTable
+
+
 
 dt_now = datetime.datetime.now()
 app = Flask(__name__)
 
-@app.route("/test", methods=['GET', 'POST'])
+@app.route('/')
+def hello_wosrld():
+
+    return "Hello world"
+
+@app.route('/test')
 def test():
     con = sqlite3.connect("test.db")
     cur = con.cursor()
@@ -27,5 +35,6 @@ def test():
     return render_template('test.html', dblen=len(dblist), dblist = dblist)
 
 if __name__ == '__main__':
-    app.debug = True  
-    app.run(host='0.0.0.0', port=8000)
+    createTable()
+    app.debug = True
+    app.run(host='0.0.0.0', port=3000)
