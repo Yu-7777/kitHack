@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY requirements.txt /app
 
-RUN apt-get update && apt-get install -y python3-pip && \
-    pip install --no-cache-dir -r requirements.txt
+RUN python -m ensurepip --upgrade && \
+    python -m pip install --no-cache-dir -r requirements.txt
 
 
 COPY . /app
