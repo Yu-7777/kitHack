@@ -15,7 +15,7 @@ def get_inventory():
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
-    if request.method == "POST":
+    if request.method == "GET":
         product_id = request.form.get('product_id', '')
         name = request.form.get('product_name', '')
         num = request.form.get('product_num', '')
