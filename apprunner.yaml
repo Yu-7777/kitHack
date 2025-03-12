@@ -7,4 +7,5 @@ build:
       - python -m pip install --no-cache-dir -r requirements.txt
 run:
   command: python app.py
-  port: 3000
+  network:
+    port: 3000
