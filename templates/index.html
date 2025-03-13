@@ -1,111 +1,173 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>在庫管理システム</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #e0f7fa;
-            color: #01579b;
-            text-align: center;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>在庫管理システム</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e0f7fa;
+      color: #01579b;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
     table {
-        width: 80%;
-        margin: 20px auto;
-        border-collapse: collapse;
-        background-color: #ffffff;
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #ffffff;
     }
     th, td {
-        border: 1px solid #01579b;
-        padding: 10px;
-        text-align: left;
+      border: 1px solid #01579b;
+      padding: 10px;
+      text-align: left;
+      vertical-align: middle;
     }
     th {
-        background-color: #0288d1;
-        color: white;
+      background-color: #0288d1;
+      color: white;
     }
     h1, h2 {
-        color: #0277bd;
+      color: #0277bd;
     }
     form {
-        background-color: #ffffff;
-        padding: 20px;
-        width: 50%;
-        margin: 20px auto;
-        border: 2px solid #0288d1;
-        border-radius: 10px;
+      background-color: #ffffff;
+      padding: 20px;
+      width: 50%;
+      margin: 20px auto;
+      border: 2px solid #0288d1;
+      border-radius: 10px;
     }
     label {
-        display: block;
-        margin: 10px 0 5px;
-        font-weight: bold;
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
     }
     input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #01579b;
-        border-radius: 5px;
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #01579b;
+      border-radius: 5px;
     }
-    button {
-        background-color: #0288d1;
-        color: white;
-        padding: 10px 15px;
+    .btn {
+      background-color: #0288d1;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 14px;
+      line-height: 1.2;
+      writing-mode: horizontal-tb; /* 縦書き回避 */
+      white-space: nowrap;
+    }
+    .btn-add {
+      background-color: #0277bd;
+    }
+    .btn-add:hover {
+      background-color: #00a0fd;
+    }
+    .btn-delete {
+      background-color: #d32f3f;
+    }
+    .btn-delete:hover {
+      background-color: #ff0019;
+    }
+    .btn-update {
+      background-color: #388e3c;
+    }
+    .btn-update:hover {
+      background-color: #4caf50;
+    }
+    /* ここで「加減」と「削除」を同じ枠で囲む */
+    .action-container {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      border: 2px solid #0288d1;  /* 青い枠線 */
+      border-radius: 8px;
+      padding: 5px;
+    }
+    .btn-history {
+      background-color: #5e35b1;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: inline-block;
+      color: white;
+      font-size: 16px;
+      margin-top: 20px;
+      writing-mode: horizontal-tb;
+      white-space: nowrap;
+    }
+    .btn-history:hover {
+      background-color: #7e57c2;
+    }
+    .delete-form {
         border: none;
-        cursor: pointer;
-        border-radius: 5px;
+        margin: 0;
+        padding: 0;
+        display: inline;
     }
-    button:hover {
-        background-color: #0277bd;
-    }
-    </style>
+  </style>
 </head>
 <body>
-    <h1>在庫管理システム</h1>
-    <h2>カテゴリー一覧</h2>
-    <table>
-        <thead>
-            <tr>
-                {% if dblist|length > 0 %}
-                    {% for key in dblist[0].keys() %}
-                        <th>{{ key }}</th>
-                    {% endfor %}
-                {% else %}
-                    <th>データなし</th>
-                {% endif %}
-            </tr>
-        </thead>
+  <h1>在庫管理システム</h1>
+  <h2>カテゴリー一覧</h2>
+  <table>
+    <thead>
+      <tr>
+        {% if dblist|length > 0 %}
+          {% for key in dblist[0].keys() %}
+            <th>{{ key }}</th>
+          {% endfor %}
+          <th>操作</th>
+        {% else %}
+          <th>データなし</th>
+        {% endif %}
+      </tr>
+    </thead>
     <tbody>
-        {% for row in dblist %}
-            <tr>
-                {% for value in row.values() %}
-                    <td>{{ value }}</td>
-                {% endfor %}
-            </tr>
-        {% endfor %}
+      {% for row in dblist %}
+        <tr>
+          {% for value in row.values() %}
+            <td>{{ value }}</td>
+          {% endfor %}
+          <td>
+            <!-- ここを一つのコンテナにまとめる -->
+            <div class="action-container">
+              <!-- 加減ボタン -->
+              <a href="{{ url_for('update', cat_id=row['id']) }}">
+                <button type="button" class="btn btn-update">加減</button>
+              </a>
+              <!-- 削除ボタン -->
+              <form class="delete-form" action="{{ url_for('delete_category', id=row['id']) }}" method="post" style="margin:0;">
+                <button type="submit" class="btn btn-delete">削除</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
     </tbody>
-    </table>
+  </table>
 
-    <h2>カテゴリー追加</h2>
-    <form action="{{ url_for('index') }}" method="post">
-        <label for="name">商品名:</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="num">数量:</label>
-        <input type="text" id="num" name="num" required>
-
-        <label for="cold">温度:</label>
-        <input type="text" id="cold" name="cold">
-
-        <label for="place_stock">保管場所:</label>
-        <input type="text" id="place_stock" name="place_stock">
-
-        <label for="category">カテゴリー:</label>
-        <input type="text" id="category" name="category" required>
-
-        <button type="submit">追加</button>
-    </form>
+  <h2>カテゴリー追加</h2>
+  <form action="{{ url_for('index') }}" method="post">
+    <label for="name">商品名:</label>
+    <input type="text" id="name" name="name" required>
+    <label for="num">数量:</label>
+    <input type="text" id="num" name="num" required>
+    <label for="cold">温度:</label>
+    <input type="text" id="cold" name="cold">
+    <label for="place_stock">保管場所:</label>
+    <input type="text" id="place_stock" name="place_stock">
+    <label for="category">カテゴリー:</label>
+    <input type="text" id="category" name="category" required>
+    <button type="submit" class="btn btn-add">追加</button>
+  </form>
+  <a href="{{ url_for('history') }}" class="btn-history">変更履歴</a>
 </body>
 </html>

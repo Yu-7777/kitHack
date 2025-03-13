@@ -27,6 +27,7 @@ def add_item(item_id: int, date: str, num: int) -> None:
     con.close()
 
 def select_category(
+        id: Optional[int] = None,
         name: Optional[str] = None,
         num: Optional[Tuple[str, int]] = None,
         cold: Optional[Tuple[str, int]] = None,
@@ -38,6 +39,9 @@ def select_category(
     columns = []
     values = []
 
+    if id is not None:
+        columns.append("id = ?")
+        values.append(id)
     if name is not None:
         columns.append("name = ?")
         values.append(name)
@@ -97,5 +101,52 @@ def select_item(
 
     con.close()
     return results
+    
 
-# def update_num_category()
+def delete_category(id: int) -> None:
+    con, cur = get_cursor()
+    cur.execute(f'DELETE FROM { category_table } WHERE id = ?', (id,))
+    con.commit()
+    con.close()
+
+def delete_item(id: int) -> None:
+    con, cur = get_cursor()
+    cur.execute(f'DELETE FROM { item_table } WHERE id = ?', (id,))
+    con.commit()
+    con.close()
+
+def update_category(id: int, name: str, num: int, cold: int, place_stock: str, category: str) -> None:
+    con, cur = get_cursor()
+    cur.execute(f'UPDATE { category_table } SET name = ?, num = ?, cold = ?, place_stock = ?, category = ? WHERE id = ?', (name, num, cold, place_stock, category, id))
+    con.commit()
+    con.close()
+
+def update_item(id: int, item_id: int, date: str, num: int) -> None:
+    con, cur = get_cursor()
+    cur.execute(f'UPDATE { item_table } SET item_id = ?, date = ?, num = ? WHERE id = ?', (item_id, date, num, id))
+    con.commit()
+    con.close()
+
+def increment_category(id: int, num: int) -> None:
+    con, cur = get_cursor()
+    cur.execute(f'UPDATE { category_table } SET num = num + ? WHERE id = ?', (num, id))
+    con.commit()
+    con.close()
+
+def decrement_category(id: int, num: int) -> None:
+    con, cur = get_cursor()
+    cur.execute(f'UPDATE { category_table } SET num = num - ? WHERE id = ?', (num, id))
+    con.commit()
+    con.close()
+
+def increment_item(id: int, num: int) -> None:
+    con, cur = get_cursor()
+    cur.execute(f'UPDATE { item_table } SET num = num + ? WHERE id = ?', (num, id))
+    con.commit()
+    con.close()
+
+def decrement_item(id: int, num: int) -> None:
+    con, cur = get_cursor()
+    cur.execute(f'UPDATE { item_table } SET num = num - ? WHERE id = ?', (num, id))
+    con.commit()
+    con.close()
