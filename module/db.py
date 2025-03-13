@@ -98,4 +98,14 @@ def select_item(
     con.close()
     return results
 
-# def update_num_category()
+def delete_category(id: int) -> None:
+    con, cur = get_cursor()
+    cur.execute(f'DELETE FROM { category_table } WHERE id = ?', (id,))
+    con.commit()
+    con.close()
+
+def delete_item(id: int) -> None:
+    con, cur = get_cursor()
+    cur.execute(f'DELETE FROM { item_table } WHERE id = ?', (id,))
+    con.commit()
+    con.close()
