@@ -70,6 +70,17 @@
     .btn-delete:hover{
         background-color: #ff0019;
     }
+    .btn-update {
+        background-color: #388e3c;
+    }
+    .btn-update:hover {
+        background-color: #4caf50;
+    }
+    .action-buttons {
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+    }
     </style>
 </head>
 <body>
@@ -95,9 +106,14 @@
                     <td>{{ value }}</td>
                 {% endfor %}
                 <td>
-                    <form action="{{ url_for('delete_category', id=row['id']) }}" method="post">
-                        <button type="submit" class="btn btn-delete">削除</button>
-                    </form>
+                    <div class="action-buttons">
+                        <a href="{{ url_for('update', cat_id=row['id']) }}">
+                            <button type="button" class="btn btn-update">加減</button>
+                        </a>
+                        <form action="{{ url_for('delete_category', id=row['id']) }}" method="post">
+                            <button type="submit" class="btn btn-delete">削除</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
         {% endfor %}

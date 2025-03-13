@@ -55,6 +55,26 @@ def delete_category(id):
     db.delete_category(id)
     return redirect(url_for('index'))
 
+@app.route('/update/<int:cat_id>', methods=['GET', 'POST'])
+def update(cat_id):
+    if request.method == "POST":
+        change = request.form.get('change', '')
+        date = request.form.get('date', '')
+        change = int(change)
+
+        if change > 0:
+            db.increment_category(id=cat_id, num=change)
+            db.add_item(item_id=cat_id, date=date, num=change)
+        else:
+            db.decrement_category(id=cat_id, num=abs(change))
+            db.add_item(item_id=cat_id, date=date, num=change)
+        return redirect(url_for('index'))
+    category = db.select_category(id=cat_id)
+    if category:
+        category = category[0]
+        category = {key: category[key] for key in category.keys()}
+    return render_template('update_item.html', category=category)
+
 if __name__ == '__main__':
     createTable()
     app.debug = True
