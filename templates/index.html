@@ -61,6 +61,8 @@
       border-radius: 5px;
       font-size: 14px;
       line-height: 1.2;
+      writing-mode: horizontal-tb; /* 縦書き回避 */
+      white-space: nowrap;
     }
     .btn-add {
       background-color: #0277bd;
@@ -80,10 +82,14 @@
     .btn-update:hover {
       background-color: #4caf50;
     }
-    .action-buttons {
+    /* ここで「加減」と「削除」を同じ枠で囲む */
+    .action-container {
       display: inline-flex;
-      gap: 5px;
+      gap: 10px;
       align-items: center;
+      border: 2px solid #0288d1;  /* 青い枠線 */
+      border-radius: 8px;
+      padding: 5px;
     }
     .btn-history {
       background-color: #5e35b1;
@@ -94,9 +100,17 @@
       color: white;
       font-size: 16px;
       margin-top: 20px;
+      writing-mode: horizontal-tb;
+      white-space: nowrap;
     }
     .btn-history:hover {
       background-color: #7e57c2;
+    }
+    .delete-form {
+        border: none;
+        margin: 0;
+        padding: 0;
+        display: inline;
     }
   </style>
 </head>
@@ -123,11 +137,14 @@
             <td>{{ value }}</td>
           {% endfor %}
           <td>
-            <div class="action-buttons">
+            <!-- ここを一つのコンテナにまとめる -->
+            <div class="action-container">
+              <!-- 加減ボタン -->
               <a href="{{ url_for('update', cat_id=row['id']) }}">
                 <button type="button" class="btn btn-update">加減</button>
               </a>
-              <form action="{{ url_for('delete_category', id=row['id']) }}" method="post" style="display:inline;">
+              <!-- 削除ボタン -->
+              <form class="delete-form" action="{{ url_for('delete_category', id=row['id']) }}" method="post" style="margin:0;">
                 <button type="submit" class="btn btn-delete">削除</button>
               </form>
             </div>
