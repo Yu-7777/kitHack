@@ -75,6 +75,12 @@ def update(cat_id):
         category = {key: category[key] for key in category.keys()}
     return render_template('update_item.html', category=category)
 
+@app.route('/history', methods=['GET'])
+def history():
+    dblist = db.select_item()
+    dblist = [dict(row) for row in dblist]
+    return render_template('history.html', items=dblist)
+
 if __name__ == '__main__':
     createTable()
     app.debug = True
