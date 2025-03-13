@@ -42,11 +42,12 @@ def createTable():
         foreign key (item_id) references category(id)
     );
     """)
+    
 
     # ダミーデータ生成と挿入
     def insert_dummy_data():
         # categoryテーブル用データ生成
-        for i in range(1, 101):  # 1〜100のデータを生成
+        for i in range(1, 11):  # 1〜100のデータを生成
             name = f"商品{i}"
             num = random.randint(1, 500)
             cold = random.choice([0, 1])
@@ -55,12 +56,12 @@ def createTable():
             db.add_category(name, num, cold, place_stock, category)
 
         # itemテーブル用データ生成
-        for _ in range(100):  # 100件のデータを生成
+        for _ in range(10):  # 100件のデータを生成
             item_id = random.randint(1, 100)  # categoryテーブルのidを参照
             date = (datetime.today() - timedelta(days=random.randint(1, 365))).strftime('%Y-%m-%d')
             num = random.randint(1, 50)
             db.add_item(item_id, date, num)
-
+    
     
 
 
