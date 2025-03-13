@@ -50,13 +50,7 @@ def index():
     dblist = [dict(row) for row in dblist]
     return render_template('index.html', dblist=dblist)
 
-"""
-@app.route('/update/<int:cat_id>', methods=['GET', 'POST'])
-def update(cat_id):
-    if request.method == "POST":
-        change = request.get('change', 0)
-        date = request.form.get('date', '')
-"""
+
 
 if __name__ == '__main__':
     createTable()
