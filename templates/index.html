@@ -49,7 +49,7 @@
         border: 1px solid #01579b;
         border-radius: 5px;
     }
-    button {
+    .btn {
         background-color: #0288d1;
         color: white;
         padding: 10px 15px;
@@ -57,8 +57,18 @@
         cursor: pointer;
         border-radius: 5px;
     }
-    button:hover {
-        background-color: #0277bd;
+    .btn-add{
+        background-color:#0277bd;
+    }
+    .btn-add:hover {
+        background-color: #00a0fd;
+    }
+    
+    .btn-delete{
+        background-color: #d32f3f;
+    }
+    .btn-delete:hover{
+        background-color: #ff0019;
     }
     </style>
 </head>
@@ -72,6 +82,7 @@
                     {% for key in dblist[0].keys() %}
                         <th>{{ key }}</th>
                     {% endfor %}
+                    <th>操作</th>
                 {% else %}
                     <th>データなし</th>
                 {% endif %}
@@ -83,6 +94,9 @@
                 {% for value in row.values() %}
                     <td>{{ value }}</td>
                 {% endfor %}
+                <td>
+                    <button type="submit" class="btn btn-delete">削除</button>
+                </td>
             </tr>
         {% endfor %}
     </tbody>
@@ -105,7 +119,8 @@
         <label for="category">カテゴリー:</label>
         <input type="text" id="category" name="category" required>
 
-        <button type="submit">追加</button>
+        <button type="submit" class="btn btn-add">追加</button>
+        
     </form>
 </body>
 </html>

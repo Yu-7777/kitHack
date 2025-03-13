@@ -97,5 +97,6 @@ def select_item(
 
     con.close()
     return results
+    
 
 # def update_num_category()
