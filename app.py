@@ -50,7 +50,10 @@ def index():
     dblist = [dict(row) for row in dblist]
     return render_template('index.html', dblist=dblist)
 
-
+@app.route('/delete_category/<int:id>', methods=['POST'])
+def delete_category(id):
+    db.delete_category(id)
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     createTable()
