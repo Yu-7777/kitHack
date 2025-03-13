@@ -27,6 +27,7 @@ def add_item(item_id: int, date: str, num: int) -> None:
     con.close()
 
 def select_category(
+        id: Optional[int] = None,
         name: Optional[str] = None,
         num: Optional[Tuple[str, int]] = None,
         cold: Optional[Tuple[str, int]] = None,
@@ -38,6 +39,9 @@ def select_category(
     columns = []
     values = []
 
+    if id is not None:
+        columns.append("id = ?")
+        values.append(id)
     if name is not None:
         columns.append("name = ?")
         values.append(name)
