@@ -57,7 +57,7 @@ def createTable():
         # itemテーブル用データ生成
         for _ in range(100):  # 100件のデータを生成
             item_id = random.randint(1, 100)  # categoryテーブルのidを参照
-            date = (datetime.today() - timedelta(days=random.randint(1, 365))).isoformat()
+            date = (datetime.today() - timedelta(days=random.randint(1, 365))).strftime('%Y-%m-%d')
             num = random.randint(1, 50)
             db.add_item(item_id, date, num)
 
